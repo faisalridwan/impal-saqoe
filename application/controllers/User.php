@@ -19,7 +19,7 @@ class User extends CI_Controller
 
     public function profile()
     {
-        $data['title'] = 'Profile';
+        $data['title'] = 'My Profile';
         $data['user'] = $this->db->get_where(
             'pengguna',
             ['email' => $this->session->userdata('email')]
@@ -28,6 +28,20 @@ class User extends CI_Controller
 
         $this->load->view('templates/user_header', $data);
         $this->load->view('user/profile');
+        $this->load->view('templates/user_footer');
+    }
+
+    public function edit()
+    {
+        $data['title'] = 'Edit Profile';
+        $data['user'] = $this->db->get_where(
+            'pengguna',
+            ['email' => $this->session->userdata('email')]
+        )
+            ->row_array();
+
+        $this->load->view('templates/user_header', $data);
+        $this->load->view('user/edit', $data);
         $this->load->view('templates/user_footer');
     }
 }

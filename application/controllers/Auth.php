@@ -6,11 +6,16 @@ class Auth extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
+		$this->load->model('M_Auth');
 		$this->load->library('form_validation');
 	}
 
 	public function index()
 	{
+		//agar tidak bisa ke halaman login
+		if ($this->session->userdata('email')) {
+			redirect('user');
+		}
 
 		$this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
 		$this->form_validation->set_rules('password', 'Password', 'trim|required');
@@ -54,11 +59,13 @@ class Auth extends CI_Controller
 	}
 
 
-
-
-
 	public function registration()
 	{
+		//agar tidak bisa ke halaman registration
+		if ($this->session->userdata('email')) {
+			redirect('user');
+		}
+
 		$this->form_validation->set_rules('username', 'Username', 'required|trim|is_unique[pengguna.username]', [
 			'is_unique' => 'This Username is already registered !'
 		]);
@@ -81,20 +88,8 @@ class Auth extends CI_Controller
 			$this->load->view('templates/auth_footer');
 		} else {
 			echo 'data';
-			$data = [
-				'username' => htmlspecialchars($this->input->post('username', true)),
-				'password' => $this->input->post('password1'),
-				'name' => htmlspecialchars($this->input->post('name', true)),
-				'phoneNumber' => htmlspecialchars($this->input->post('phoneNumber', true)),
-				'address' => htmlspecialchars($this->input->post('address', true)),
-				'saldo' => '0',
-				'email' => htmlspecialchars($this->input->post('email', true)),
-				'image' => 'default.jpg',
-				'datecreated' => time(),
 
-			];
-
-			$this->db->insert('pengguna', $data);
+			$this->M_Auth->InsertPengguna();
 			$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
 			Congratulation! your account has been created. Please Login</div>');
 			redirect('auth');
