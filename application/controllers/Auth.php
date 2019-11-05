@@ -87,7 +87,6 @@ class Auth extends CI_Controller
 			$this->load->view('auth/registration');
 			$this->load->view('templates/auth_footer');
 		} else {
-			echo 'data';
 
 			$this->M_Auth->InsertPengguna();
 			$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">

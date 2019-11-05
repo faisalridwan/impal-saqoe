@@ -16,7 +16,6 @@ class M_auth extends CI_Model
             'email' => htmlspecialchars($this->input->post('email', true)),
             'image' => 'default.jpg',
             'datecreated' => time(),
-
         ];
 
         $this->db->insert('pengguna', $data);
