@@ -24,8 +24,6 @@
                                     <p class="card-text">
                                         <h6>Address : </h6><?= $user['address']; ?>
                                     </p>
-
-
                                     <p class="card-text"><small class="text-muted">Member since <?= date('d F Y', $user['datecreated']); ?></small></p>
                                 </div>
                             </div>

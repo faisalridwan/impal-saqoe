@@ -61,8 +61,8 @@
                 <div id="harian" class="collapse" aria-labelledby="headingTwo">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <!-- <h6 class="collapse-header">Harian</h6> -->
-                        <a class="collapse-item" href="buttons.html">Pemasukan</a>
-                        <a class="collapse-item" href="cards.html">Pengeluaran</a>
+                        <a class="collapse-item" href="<?= base_url('user/harianPemasukan'); ?>">Pemasukan</a>
+                        <a class="collapse-item" href="<?= base_url('user/harianPengeluaran'); ?>">Pengeluaran</a>
                     </div>
                 </div>
             </li>
@@ -138,16 +138,15 @@
                 <!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
-                    <!-- Sidebar Toggle (Topbar) -->
-                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                        <i class="fa fa-bars"></i>
-                    </button>
-
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
 
-                        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-
+                        <!-- Nav Item - Alerts -->
+                        <li class="nav-item no-arrow mx-1">
+                            <a class="nav-link font-weight-bold text-black-50" href="#" id="saldo">
+                                Saldo : Rp.<?= $user['saldo']; ?>,00
+                            </a>
+                        </li>
 
                         <!-- Nav Item - Alerts -->
                         <li class="nav-item dropdown no-arrow mx-1">
