@@ -44,7 +44,6 @@
                         <button type="submit" class="btn btn-primary">Submit Pengeluaran</button>
                     </div>
                 </div>
-
             </form>
         </div>
     </div>
