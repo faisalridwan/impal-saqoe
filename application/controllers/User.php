@@ -73,10 +73,46 @@ class User extends CI_Controller
             ['email' => $this->session->userdata('email')]
         )
             ->row_array();
-        $this->load->view('templates/user_header', $data);
-        $this->load->view('user/harianPemasukan');
-        $this->load->view('templates/user_footer');
+
+
+        $this->form_validation->set_rules('namaPemasukan', 'Nama Pemasukan', 'required|trim');
+
+        if ($this->form_validation->run() == false) {
+
+            $this->load->view('templates/user_header', $data);
+            $this->load->view('user/harianPemasukan');
+            $this->load->view('templates/user_footer');
+        } else {
+
+            $data = [
+
+                'username' => $this->input->post('username', true),
+                'namaPemasukan' => $this->input->post('namaPemasukan', true),
+                'besarPemasukan' => $this->input->post('besarPemasukan', true),
+                'tanggalPemasukan' => date('Y-m-d '),
+                'jamPemasukan' => date('H:i:s'),
+            ];
+
+            $this->db->insert('harianpemasukan', $data);
+
+            $saldo = $this->input->post('saldo', true);
+
+            $saldosekarang = $data['besarPemasukan'] + $saldo;
+
+            $this->db->set('saldo', $saldosekarang);
+            $this->db->where('username', $data['username']);
+            $this->db->update('pengguna');
+
+
+
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+			You Pemasukan has been updated ! </div>');
+            redirect('user/harianPemasukan');
+        }
     }
+
+    public function _harianpemasukan()
+    { }
 
     public function harianPengeluaran()
     {

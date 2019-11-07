@@ -3,28 +3,30 @@
     <h1 class="h3 mb-4 text-gray-800"><?= $title ?></h1>
     <?= $this->session->flashdata('message'); ?>
 
-    <div class="row">
-        <div class="col-lg-8">
+    <form action="<?= base_url('user/harianPemasukan'); ?>" method="post">
 
-            <form action="<?= base_url('user/harianPemasukan'); ?>" method="post">
-
+        <div class="row">
+            <div class="col-lg-8">
 
                 <div class="form-group row">
-                    <label for="name" class="col-sm-2 col-form-label">Nama Pemasukan</label>
+                    <label for="username" class="col-sm-2 col-form-label">Username</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="name" name="name" placeholder="Nama Pemasukan">
-                        <?= form_error('name', '<small class="text-danger pl-3">', '</small>'); ?>
+                        <input type="text" class="form-control" id="username" name="username" value="<?= $user['username']; ?>" readonly>
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    <label for="name" class="col-sm-2 col-form-label">Kategori</label>
+                    <label for="username" class="col-sm-2 col-form-label">Saldo Sekarang</label>
                     <div class="col-sm-10">
-                        <select class="custom-select">
-                            <option selected>Pilih Kategori Pemasukan</option>
-                            <option value="dikasihortu">Dikasih Orang Tua</option>
-                            <option value="bulanan">Bulanan</option>
-                        </select>
+                        <input type="text" class="form-control" id="saldo" name="saldo" value="<?= $user['saldo']; ?>" readonly>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="name" class="col-sm-2 col-form-label">Nama Pemasukan</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="namaPemasukan" name="namaPemasukan" placeholder="Nama Pemasukan">
+                        <?= form_error('namaPemasukan', '<small class="text-danger pl-3">', '</small>'); ?>
                     </div>
                 </div>
 
@@ -35,7 +37,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1">Rp.</span>
                             </div>
-                            <input type="text" class="form-control" placeholder="Besar Total Pemasukan">
+                            <input type="text" class="form-control" id="besarPemasukan" name="besarPemasukan" placeholder="Besar Total Pemasukan">
                         </div>
                     </div>
                 </div>
@@ -45,10 +47,10 @@
                     </div>
                 </div>
 
-            </form>
+    </form>
 
 
-        </div>
-    </div>
+</div>
+</div>
 </div>
 </div>
