@@ -3,28 +3,30 @@
     <h1 class="h3 mb-4 text-gray-800"><?= $title ?></h1>
     <?= $this->session->flashdata('message'); ?>
 
-    <div class="row">
-        <div class="col-lg-8">
+    <form action="<?= base_url('user/harianPengeluaran'); ?>" method="post">
 
-            <form action="<?= base_url('user/harianPengeluaran'); ?>" method="post">
-
+        <div class="row">
+            <div class="col-lg-8">
 
                 <div class="form-group row">
-                    <label for="name" class="col-sm-2 col-form-label">Nama Pengeluaran</label>
+                    <label for="username" class="col-sm-2 col-form-label">Username</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="name" name="name" placeholder="Nama Pengeluaran">
-                        <?= form_error('name', '<small class="text-danger pl-3">', '</small>'); ?>
+                        <input type="text" class="form-control" id="username" name="username" value="<?= $user['username']; ?>" readonly>
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    <label for="name" class="col-sm-2 col-form-label">Kategori</label>
+                    <label for="username" class="col-sm-2 col-form-label">Saldo Sekarang</label>
                     <div class="col-sm-10">
-                        <select class="custom-select">
-                            <option selected>Pilih Kategori Pengeluaran</option>
-                            <option value="dikasihortu">Dikasih Orang Tua</option>
-                            <option value="bulanan">Bulanan</option>
-                        </select>
+                        <input type="text" class="form-control" id="saldo" name="saldo" value="<?= $user['saldo']; ?>" readonly>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="name" class="col-sm-2 col-form-label">Nama Pengeluaran</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="namaPengeluaran" name="namaPengeluaran" placeholder="Nama Pengeluaran">
+                        <?= form_error('namaPengeluaran', '<small class="text-danger pl-3">', '</small>'); ?>
                     </div>
                 </div>
 
@@ -35,7 +37,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1">Rp.</span>
                             </div>
-                            <input type="text" class="form-control" placeholder="Besar Total Pengeluaran">
+                            <input type="text" class="form-control" id="besarPengeluaran" name="besarPengeluaran" placeholder="Besar Total Pengeluaran">
                         </div>
                     </div>
                 </div>
@@ -44,8 +46,9 @@
                         <button type="submit" class="btn btn-primary">Submit Pengeluaran</button>
                     </div>
                 </div>
-            </form>
-        </div>
-    </div>
+
+    </form>
+</div>
+</div>
 </div>
 </div>

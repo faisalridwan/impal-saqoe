@@ -102,17 +102,13 @@ class User extends CI_Controller
             $this->db->set('saldo', $saldosekarang);
             $this->db->where('username', $data['username']);
             $this->db->update('pengguna');
-
-
-
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
 			You Pemasukan has been updated ! </div>');
             redirect('user/harianPemasukan');
         }
     }
 
-    public function _harianpemasukan()
-    { }
+
 
     public function harianPengeluaran()
     {
@@ -122,8 +118,38 @@ class User extends CI_Controller
             ['email' => $this->session->userdata('email')]
         )
             ->row_array();
-        $this->load->view('templates/user_header', $data);
-        $this->load->view('user/harianPengeluaran');
-        $this->load->view('templates/user_footer');
+
+
+        $this->form_validation->set_rules('namaPengeluaran', 'Nama Pengeluaran', 'required|trim');
+
+        if ($this->form_validation->run() == false) {
+
+            $this->load->view('templates/user_header', $data);
+            $this->load->view('user/harianPengeluaran');
+            $this->load->view('templates/user_footer');
+        } else {
+
+            $data = [
+
+                'username' => $this->input->post('username', true),
+                'namaPengeluaran' => $this->input->post('namaPengeluaran', true),
+                'besarPengeluaran' => $this->input->post('besarPengeluaran', true),
+                'tanggalPengeluaran' => date('Y-m-d '),
+                'jamPengeluaran' => date('H:i:s'),
+            ];
+
+            $this->db->insert('harianPengeluaran', $data);
+
+            $saldo = $this->input->post('saldo', true);
+
+            $saldosekarang =  $saldo - $data['besarPengeluaran'];
+
+            $this->db->set('saldo', $saldosekarang);
+            $this->db->where('username', $data['username']);
+            $this->db->update('pengguna');
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+			You Pengeluaran has been updated ! </div>');
+            redirect('user/harianPengeluaran');
+        }
     }
 }
