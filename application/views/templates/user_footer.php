@@ -65,3 +65,34 @@
 </body>
 
 </html>
+
+
+<!-- Modal -->
+<div class="modal fade" id="ModalPemasukan" tabindex="-1" role="dialog" aria-labelledby="ModalPemasukan" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Event mana yang mau dipilih ?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="<?= base_url('event') ?>">
+                    <div class="form-group">
+                        <select class="form-control" id="formGroupExampleInput2" name="kodekota" required>
+                            <?php foreach ($datakota as $c) { ?>
+                                <option value="<?php echo $c->kodekota ?>"> <?php echo $c->kodekota . ' - ' . $c->namakota;  ?></option>
+                            <?php } ?>
+
+                        </select>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+
+</div>

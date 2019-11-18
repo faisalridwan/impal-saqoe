@@ -152,4 +152,8 @@ class User extends CI_Controller
             redirect('user/harianPengeluaran');
         }
     }
+
+
+    public function Event()
+    { }
 }
