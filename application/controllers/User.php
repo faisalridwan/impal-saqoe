@@ -9,7 +9,7 @@ class User extends CI_Controller
         $this->load->model('M_User');
         $this->load->library('form_validation');
     }
-    public function index()
+    public function index() 
     {
         $data['title'] = 'Dashboard';
         $data['user'] = $this->db->get_where(
@@ -17,8 +17,10 @@ class User extends CI_Controller
             ['email' => $this->session->userdata('email')]
         )
             ->row_array();
+        $username = $this->input->post('username', true);
+        $event = $this->M_User->GetNamaEvent($username);
         $this->load->view('templates/user_header', $data);
-        $this->load->view('user/index');
+        $this->load->view('user/index', ['event' => $event]);
         $this->load->view('templates/user_footer');
     }
 
@@ -154,6 +156,27 @@ class User extends CI_Controller
     }
 
 
-    public function Event()
-    { }
+    public function event()
+    {
+
+        $data['user'] = $this->db->get_where(
+            'pengguna',
+            ['email' => $this->session->userdata('email')]
+        )
+            ->row_array();
+
+        $this->form_validation->set_rules('namaEvent', 'Nama Event', 'required|trim');
+
+        $data = [
+
+            'username' => $this->input->post('username', true),
+            'namaEvent' => $this->input->post('namaEvent', true),
+            'budget' => 0,
+        ];
+
+        $this->db->insert('event', $data);
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+        You Pengeluaran has been updated ! </div>');
+        redirect();
+    }
 }

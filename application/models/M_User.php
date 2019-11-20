@@ -17,4 +17,16 @@ class M_User extends CI_Model
         $this->db->where('email', $username);
         $this->db->update('pengguna', $data);
     }
+
+    public function GetNamaEvent($username)
+    {
+
+        $sql = "SELECT * FROM event WHERE username = '" . $username . "' ;";
+        $query = $this->db->query($sql);
+        // $this->db->select('*');
+        // $this->db->from('event');
+        // // $this->db->where('username', $username);
+        // $query = $this->db->get();
+        return $query->result();
+    }
 }

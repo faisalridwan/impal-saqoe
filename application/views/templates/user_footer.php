@@ -67,7 +67,80 @@
 </html>
 
 
-<!-- Modal -->
+<!-- Modal Nambah Event -->
+<div class="modal fade" id="TambahEvent" tabindex="-1" role="dialog" aria-labelledby="TambahEvent" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form method="post" action="<?= base_url('user/event') ?>">
+                <div class="modal-header">
+                    <h5 class="modal-title">Masukkan Nama Event</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group row">
+                        <label for="username" class="col-sm-3 col-form-label">Username</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="username" name="username" value="<?= $user['username']; ?>" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="name" class="col-sm-3 col-form-label">Nama Event</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="namaEvent" name="namaEvent" placeholder="Nama Event">
+                            <?= form_error('namaPemasukan', '<small class="text-danger pl-3">', '</small>'); ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer center-block">
+                    <div class="center-block">
+                        <button type="submit" class="btn btn-primary center-block">Tambah Event</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal Pemasukan Event -->
+<div class="modal fade" id="EventPemasukan" tabindex="-1" role="dialog" aria-labelledby="EventPemasukan" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Event mana yang mau dipilih ?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="<?= base_url('user/event') ?>">
+                    <div class="form-group row">
+                        <label for="username" class="col-sm-2 col-form-label">Username</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="username" name="username" value="<?= $user['username']; ?>" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control" id="formGroupExampleInput2" name="namaEvent" required>
+                            <?php foreach ($event as $c) { ?>
+                                <option value="<?php echo $c->namaEvent; ?>"> <?php echo $c->namaEvent; ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+            </div>
+            <div class="modal-footer center-block">
+                <div class="center-block">
+                    <button type="button" class="btn btn-primary center-block">Pilih Event</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Pengeluaran Event -->
 <div class="modal fade" id="ModalPemasukan" tabindex="-1" role="dialog" aria-labelledby="ModalPemasukan" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -79,20 +152,30 @@
             </div>
             <div class="modal-body">
                 <form method="post" action="<?= base_url('event') ?>">
+                    <div class="form-group row">
+                        <label for="username" class="col-sm-2 col-form-label">Username</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="username" name="username" value="<?= $user['username']; ?>" readonly>
+                        </div>
+                    </div>
                     <div class="form-group">
-                        <select class="form-control" id="formGroupExampleInput2" name="kodekota" required>
-                            <?php foreach ($datakota as $c) { ?>
-                                <option value="<?php echo $c->kodekota ?>"> <?php echo $c->kodekota . ' - ' . $c->namakota;  ?></option>
+                        <select class="form-control" id="formGroupExampleInput2" name="namaEvent" required>
+                            <?php foreach ($event as $c) { ?>
+                                <option value="<?php echo $c->namaEvent; ?>"> <?php echo $c->namaEvent; ?></option>
                             <?php } ?>
-
                         </select>
                     </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+            <div class="modal-footer center-block">
+                <div class="center-block">
+                    <button type="button" class="btn btn-primary center-block">Tambah Event</button>
+                </div>
+                or
+                <!-- <hr> -->
+                <div class="center-block">
+                    <button type="button" class="btn btn-primary center-block">Tambah Event</button>
+                </div>
             </div>
         </div>
     </div>
-
 </div>

@@ -76,8 +76,9 @@
                 <div id="event" class="collapse" aria-labelledby="headingUtilities">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <!-- <h6 class="collapse-header">Custom Utilities:</h6> -->
-                        <a class="collapse-item" href="#ModalPemasukan" data-toggle="modal" data-target="#ModalPemasukan">Pemasukan</a>
-                        <a class="collapse-item" href="#">Pengeluaran</a>
+                        <a class="collapse-item" href="#TambahEvent" data-toggle="modal" data-target="#TambahEvent">Tambah Event</a>
+                        <a class="collapse-item" href="#EventPemasukan" data-toggle="modal" data-target="#EventPemasukan">Pemasukan</a>
+                        <a class="collapse-item" href="#EventPengeluaran" data-toggle="modal" data-target="#EventPengeluaran">Pengeluaran</a>
                         <!-- <a class="collapse-item" href="utilities-animation.html">Animations</a>
             <a class="collapse-item" href="utilities-other.html">Other</a> -->
                     </div>
