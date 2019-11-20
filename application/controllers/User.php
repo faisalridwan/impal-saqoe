@@ -9,16 +9,20 @@ class User extends CI_Controller
         $this->load->model('M_User');
         $this->load->library('form_validation');
     }
-    public function index() 
+    public function index()
     {
         $data['title'] = 'Dashboard';
         $data['user'] = $this->db->get_where(
             'pengguna',
-            ['email' => $this->session->userdata('email')]
+            ['username' => $this->session->userdata('username')]
         )
             ->row_array();
-        $username = $this->input->post('username', true);
+
+
+        $username = $this->session->userdata('username');
+
         $event = $this->M_User->GetNamaEvent($username);
+
         $this->load->view('templates/user_header', $data);
         $this->load->view('user/index', ['event' => $event]);
         $this->load->view('templates/user_footer');
@@ -29,22 +33,29 @@ class User extends CI_Controller
         $data['title'] = 'My Profile';
         $data['user'] = $this->db->get_where(
             'pengguna',
-            ['email' => $this->session->userdata('email')]
+            ['username' => $this->session->userdata('username')]
         )
             ->row_array();
+        $username = $this->session->userdata('username');
+
+        $event = $this->M_User->GetNamaEvent($username);
+
         $this->load->view('templates/user_header', $data);
-        $this->load->view('user/profile');
+        $this->load->view('user/profile', ['event' => $event]);
         $this->load->view('templates/user_footer');
     }
 
     public function edit()
     {
         $data['title'] = 'Edit Profile';
-        $data['user'] = $this->db->get_where('pengguna', ['email' => $this->session->userdata('email')])->row_array();
+        $data['user'] = $this->db->get_where('pengguna', ['username' => $this->session->userdata('username')])->row_array();
         $this->form_validation->set_rules('name', 'Full Name', 'required|trim');
+        $username = $this->session->userdata('username');
+
+        $event = $this->M_User->GetNamaEvent($username);
         if ($this->form_validation->run() ==  false) {
             $this->load->view('templates/user_header', $data);
-            $this->load->view('user/edit', $data);
+            $this->load->view('user/edit', $data, ['event' => $event]);
             $this->load->view('templates/user_footer');
         } else {
             $upload_image = $_FILES['image']['name'];
@@ -72,9 +83,13 @@ class User extends CI_Controller
         $data['title'] = 'Harian Pemasukan';
         $data['user'] = $this->db->get_where(
             'pengguna',
-            ['email' => $this->session->userdata('email')]
+            ['username' => $this->session->userdata('username')]
         )
             ->row_array();
+
+        $username = $this->session->userdata('username');
+
+        $event = $this->M_User->GetNamaEvent($username);
 
 
         $this->form_validation->set_rules('namaPemasukan', 'Nama Pemasukan', 'required|trim');
@@ -82,7 +97,7 @@ class User extends CI_Controller
         if ($this->form_validation->run() == false) {
 
             $this->load->view('templates/user_header', $data);
-            $this->load->view('user/harianPemasukan');
+            $this->load->view('user/harianPemasukan', ['event' => $event]);
             $this->load->view('templates/user_footer');
         } else {
 
@@ -117,9 +132,14 @@ class User extends CI_Controller
         $data['title'] = 'Harian Pengeluaran';
         $data['user'] = $this->db->get_where(
             'pengguna',
-            ['email' => $this->session->userdata('email')]
+            ['username' => $this->session->userdata('username')]
         )
             ->row_array();
+
+        $username = $this->session->userdata('username');
+
+        $event = $this->M_User->GetNamaEvent($username);
+
 
 
         $this->form_validation->set_rules('namaPengeluaran', 'Nama Pengeluaran', 'required|trim');
@@ -127,7 +147,7 @@ class User extends CI_Controller
         if ($this->form_validation->run() == false) {
 
             $this->load->view('templates/user_header', $data);
-            $this->load->view('user/harianPengeluaran');
+            $this->load->view('user/harianPengeluaran', ['event' => $event]);
             $this->load->view('templates/user_footer');
         } else {
 
@@ -149,6 +169,9 @@ class User extends CI_Controller
             $this->db->set('saldo', $saldosekarang);
             $this->db->where('username', $data['username']);
             $this->db->update('pengguna');
+
+
+
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
 			You Pengeluaran has been updated ! </div>');
             redirect('user/harianPengeluaran');
@@ -161,9 +184,13 @@ class User extends CI_Controller
 
         $data['user'] = $this->db->get_where(
             'pengguna',
-            ['email' => $this->session->userdata('email')]
+            ['username' => $this->session->userdata('username')]
         )
             ->row_array();
+
+        $username = $this->session->userdata('username');
+
+        $event = $this->M_User->GetNamaEvent($username);
 
         $this->form_validation->set_rules('namaEvent', 'Nama Event', 'required|trim');
 
@@ -178,5 +205,65 @@ class User extends CI_Controller
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
         You Pengeluaran has been updated ! </div>');
         redirect();
+    }
+
+
+    public function eventPemasukan()
+    {
+        $namaEvent = $this->input->post('namaEvent');
+        $username = $this->session->userdata('username');
+        $data['title'] = 'Event ' . $namaEvent . ' Pemasukan';
+        $data['eventsekarang'] = $namaEvent;
+        $data['user'] = $this->db->get_where(
+            'pengguna',
+            ['username' => $username]
+        )
+            ->row_array();
+
+        $data['event'] = $this->db->get_where(
+            'event',
+            ['username' => $username, 'namaEvent' => $namaEvent]
+        )
+            ->row_array();
+
+
+
+        $event = $this->M_User->GetNamaEvent($username);
+
+
+
+        $this->form_validation->set_rules('namaPemasukan', 'Nama Pemasukan', 'required|trim');
+
+        if ($this->form_validation->run() == false) {
+
+            $this->load->view('templates/user_header', $data);
+            $this->load->view('user/eventPemasukan', $data, ['event' => $event]);
+            $this->load->view('templates/user_footer');
+        } else {
+
+            $data = [
+
+                'username' => $this->input->post('username', true),
+                'namaEvent' => $namaEvent,
+                'namaPemasukanEvent' => $this->input->post('namaPemasukan', true),
+                'budget' => $this->input->post('budget', true),
+                'tanggalPemasukan' => date('Y-m-d '),
+                'jamPemasukan' => date('H:i:s'),
+            ];
+
+            $this->db->insert('eventpemasukan', $data);
+
+            $saldo = $this->input->post('budgetSekarang', true);
+
+            $saldosekarang = $data['budget'] + $saldo;
+
+            $this->db->set('budget', $saldosekarang);
+            $this->db->where('username', $data['username'],);
+            $this->db->where('namaEvent', $namaEvent,);
+            $this->db->update('event');
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+                You Pemasukan has been updated ! </div>');
+            redirect('user/eventPemasukan');
+        }
     }
 }

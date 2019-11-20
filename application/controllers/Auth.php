@@ -13,11 +13,11 @@ class Auth extends CI_Controller
 	public function index()
 	{
 		//agar tidak bisa ke halaman login
-		if ($this->session->userdata('email')) {
+		if ($this->session->userdata('username')) {
 			redirect('user');
 		}
 
-		$this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
+		$this->form_validation->set_rules('username', 'Username', 'required|trim');
 		$this->form_validation->set_rules('password', 'Password', 'trim|required');
 
 		if ($this->form_validation->run() == false) {
@@ -33,15 +33,15 @@ class Auth extends CI_Controller
 
 	private function _login()
 	{
-		$email = $this->input->post('email');
+		$username = $this->input->post('username');
 		$password = $this->input->post('password');
 
-		$user = $this->db->get_where('pengguna', ['email' => $email])->row_array();
+		$user = $this->db->get_where('pengguna', ['username' => $username])->row_array();
 
 		if ($user) {
 			if ($password == $user['password']) {
 				$data = [
-					'email' => $user['email'],
+					'username' => $user['username'],
 					'name' => $user['name']
 				];
 				$this->session->set_userdata($data);
@@ -53,7 +53,7 @@ class Auth extends CI_Controller
 			}
 		} else {
 			$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
-			Email is not registred !</div>');
+			Username is not registred !</div>');
 			redirect('auth');
 		}
 	}
@@ -62,7 +62,7 @@ class Auth extends CI_Controller
 	public function registration()
 	{
 		//agar tidak bisa ke halaman registration
-		if ($this->session->userdata('email')) {
+		if ($this->session->userdata('username')) {
 			redirect('user');
 		}
 
@@ -97,7 +97,7 @@ class Auth extends CI_Controller
 
 	public function logout()
 	{
-		$this->session->unset_userdata('email');
+		$this->session->unset_userdata('username');
 		$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
 			You have been logged out ! </div>');
 		redirect('auth');

@@ -116,7 +116,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form method="post" action="<?= base_url('user/event') ?>">
+                <form method="post" action="<?= base_url('user/eventPemasukan'); ?>">
                     <div class="form-group row">
                         <label for="username" class="col-sm-2 col-form-label">Username</label>
                         <div class="col-sm-10">
@@ -124,7 +124,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <select class="form-control" id="formGroupExampleInput2" name="namaEvent" required>
+                        <select class="form-control" id="namaEvent" name="namaEvent" required>
                             <?php foreach ($event as $c) { ?>
                                 <option value="<?php echo $c->namaEvent; ?>"> <?php echo $c->namaEvent; ?></option>
                             <?php } ?>
@@ -133,9 +133,10 @@
             </div>
             <div class="modal-footer center-block">
                 <div class="center-block">
-                    <button type="button" class="btn btn-primary center-block">Pilih Event</button>
+                    <button type="submit" class="btn btn-primary center-block">Pilih Event</button>
                 </div>
             </div>
+            </form>
         </div>
     </div>
 </div>
@@ -160,7 +161,7 @@
                     </div>
                     <div class="form-group">
                         <select class="form-control" id="formGroupExampleInput2" name="namaEvent" required>
-                            <?php foreach ($event as $c) { ?>
+                            <?php foreach ($namaEvent as $c) { ?>
                                 <option value="<?php echo $c->namaEvent; ?>"> <?php echo $c->namaEvent; ?></option>
                             <?php } ?>
                         </select>
@@ -176,6 +177,7 @@
                     <button type="button" class="btn btn-primary center-block">Tambah Event</button>
                 </div>
             </div>
+            </form>
         </div>
     </div>
 </div>

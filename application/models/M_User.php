@@ -21,12 +21,24 @@ class M_User extends CI_Model
     public function GetNamaEvent($username)
     {
 
-        $sql = "SELECT * FROM event WHERE username = '" . $username . "' ;";
-        $query = $this->db->query($sql);
-        // $this->db->select('*');
-        // $this->db->from('event');
-        // // $this->db->where('username', $username);
-        // $query = $this->db->get();
+        // $sql = "SELECT * FROM event WHERE username = '" . $username . "' ;";
+        // $query = $this->db->query($sql);
+        $this->db->select('*');
+        $this->db->from('event');
+        $this->db->where('username', $username);
+        $query = $this->db->get();
+        return $query->result();
+    }
+    public function GetNamaEventbyNameEvent($username, $namaEvent)
+    {
+
+        // $sql = "SELECT * FROM event WHERE username = '" . $username . "' ;";
+        // $query = $this->db->query($sql);
+        $this->db->select('*');
+        $this->db->from('event');
+        $this->db->where('username', $username);
+        $this->db->where('namaEvent', $namaEvent);
+        $query = $this->db->get();
         return $query->result();
     }
 }
