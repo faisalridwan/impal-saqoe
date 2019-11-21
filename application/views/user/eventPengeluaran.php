@@ -3,7 +3,7 @@
     <h1 class="h3 mb-4 text-gray-800"><?= $title ?></h1>
     <?= $this->session->flashdata('message'); ?>
 
-    <form action="<?= base_url('user/eventPemasukan'); ?>" method="post">
+    <form action="<?= base_url('user/eventPengeluaran'); ?>" method="post">
 
         <div class="row">
             <div class="col-lg-8">
@@ -37,27 +37,45 @@
                 </div>
 
                 <div class="form-group row">
-                    <label for="name" class="col-sm-2 col-form-label">Nama Budget</label>
+                    <label for="name" class="col-sm-2 col-form-label">Nama Pengeluaran</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="namaPemasukan" name="namaPemasukan" placeholder="Nama Budget">
-                        <?= form_error('namaPemasukan', '<small class="text-danger pl-3">', '</small>'); ?>
+                        <input type="text" class="form-control" id="namaPengeluaran" name="namaPengeluaran" placeholder="Nama Pengeluaran">
+                        <?= form_error('namaPengeluaran', '<small class="text-danger pl-3">', '</small>'); ?>
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    <label for="name" class="col-sm-2 col-form-label">Besar Budget Pemasukan</label>
+                    <label for="name" class="col-sm-2 col-form-label">Kategori Pengeluaran</label>
+                    <div class="col-sm-10">
+
+                    <div class="form-group">
+                        <select class="form-control" id="kategori" name="kategori" required>
+                                <option value="Makan dan Minum"> Makan dan Minum </option>
+                                <option value="Makan dan Minum"> Makan dan Minum </option>
+                                <option value="Makan dan Minum"> Makan dan Minum </option>
+                                <option value="Makan dan Minum"> Makan dan Minum </option>
+                        </select>
+                    </div>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="name" class="col-sm-2 col-form-label">Besar Pengeluaran</label>
                     <div class="col-sm-10">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1">Rp.</span>
                             </div>
-                            <input type="text" class="form-control" id="budget" name="budget" placeholder="Besar Budget Pemasukan">
+                            <input type="text" class="form-control" id="budget" name="budget" placeholder="Besar Pengeluaran">
                         </div>
                     </div>
                 </div>
+
+
+
                 <div class="form-group row justify-content-end">
                     <div class="col-sm-10">
-                        <button type="submit" class="btn btn-primary">Submit Budget</button>
+                        <button type="submit" class="btn btn-primary">Submit Pengeluaran</button>
                     </div>
                 </div>
 
@@ -67,4 +85,4 @@
 </div>
 </div>
 </div>
-</div>
+</div>3

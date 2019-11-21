@@ -220,7 +220,7 @@ class User extends CI_Controller
         )
             ->row_array();
 
-        $data['event'] = $this->db->get_where(
+        $data['eventt'] = $this->db->get_where(
             'event',
             ['username' => $username, 'namaEvent' => $namaEvent]
         )
@@ -238,7 +238,7 @@ class User extends CI_Controller
 
             $this->load->view('templates/user_header', $data);
             $this->load->view('user/eventPemasukan', $data, ['event' => $event]);
-            $this->load->view('templates/user_footer');
+            $this->load->view('templates/user_footer', ['event' => $event]);
         } else {
 
             $data = [
@@ -258,12 +258,118 @@ class User extends CI_Controller
             $saldosekarang = $data['budget'] + $saldo;
 
             $this->db->set('budget', $saldosekarang);
-            $this->db->where('username', $data['username'],);
-            $this->db->where('namaEvent', $namaEvent,);
+            $this->db->where('username', $data['username']);
+            $this->db->where('namaEvent', $namaEvent);
             $this->db->update('event');
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
                 You Pemasukan has been updated ! </div>');
-            redirect('user/eventPemasukan');
+
+                $namaEvent = $this->input->post('namaEvent');
+        $username = $this->session->userdata('username');
+        $data['title'] = 'Event ' . $namaEvent . ' Pemasukan';
+        $data['eventsekarang'] = $namaEvent;
+        $data['user'] = $this->db->get_where(
+            'pengguna',
+            ['username' => $username]
+        )
+            ->row_array();
+
+        $data['eventt'] = $this->db->get_where(
+            'event',
+            ['username' => $username, 'namaEvent' => $namaEvent]
+        )
+            ->row_array();
+
+
+
+        $event = $this->M_User->GetNamaEvent($username);
+            $this->load->view('templates/user_header', $data);
+            $this->load->view('user/eventPemasukan', $data, ['event' => $event]);
+            $this->load->view('templates/user_footer', ['event' => $event]);
+        }
+    }
+
+    // 
+
+    public function eventPengeluaran()
+    {
+        $namaEvent = $this->input->post('namaEvent');
+        $username = $this->session->userdata('username');
+        $data['title'] = 'Event ' . $namaEvent . ' Pengeluaran';
+        $data['eventsekarang'] = $namaEvent;
+        $data['user'] = $this->db->get_where(
+            'pengguna',
+            ['username' => $username]
+        )
+            ->row_array();
+
+        $data['eventt'] = $this->db->get_where(
+            'event',
+            ['username' => $username, 'namaEvent' => $namaEvent]
+        )
+            ->row_array();
+
+
+
+        $event = $this->M_User->GetNamaEvent($username);
+
+
+
+        $this->form_validation->set_rules('namaPengeluaran', 'Nama Pengeluaran', 'required|trim');
+
+        if ($this->form_validation->run() == false) {
+
+            $this->load->view('templates/user_header', $data);
+            $this->load->view('user/eventPengeluaran', $data, ['event' => $event]);
+            $this->load->view('templates/user_footer', ['event' => $event]);
+        } else {
+
+            $data = [
+
+                'username' => $this->input->post('username', true),
+                'namaEvent' => $namaEvent,
+                'namaPengeluaranEvent' => $this->input->post('namaPengeluaran', true),
+                'besarPengeluaran' => $this->input->post('budget', true),
+                'kategoriPengeluaranEvent' => $this->input->post('kategori',true),
+                'tglPengeluaranEvent' => date('Y-m-d'),
+                'jamPengeluaran' => date('H:i:s'),
+            ];
+
+            $this->db->insert('eventpengeluaran', $data);
+
+            $saldo = $this->input->post('budgetSekarang', true);
+
+            $saldosekarang =  $saldo - $data['besarPengeluaran'];
+
+            $this->db->set('budget', $saldosekarang);
+            $this->db->where('username', $data['username']);
+            $this->db->where('namaEvent', $namaEvent);
+            $this->db->update('event');
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+                You Pemasukan has been updated ! </div>');
+
+                $namaEvent = $this->input->post('namaEvent');
+        $username = $this->session->userdata('username');
+        $data['title'] = 'Event ' . $namaEvent . ' Pengeluaran';
+        $data['eventsekarang'] = $namaEvent;
+        $data['user'] = $this->db->get_where(
+            'pengguna',
+            ['username' => $username]
+        )
+            ->row_array();
+
+        $data['eventt'] = $this->db->get_where(
+            'event',
+            ['username' => $username, 'namaEvent' => $namaEvent]
+        )
+            ->row_array();
+
+
+
+        $event = $this->M_User->GetNamaEvent($username);
+            $this->load->view('templates/user_header', $data);
+            $this->load->view('user/eventPengeluaran', $data, ['event' => $event]);
+            $this->load->view('templates/user_footer', ['event' => $event]);
         }
     }
 }

@@ -110,7 +110,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Event mana yang mau dipilih ?</h5>
+                <h5 class="modal-title" id="EventPemasukan">Pemasukan Event mana yang mau dipilih ?</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -142,17 +142,17 @@
 </div>
 
 <!-- Modal Pengeluaran Event -->
-<div class="modal fade" id="ModalPemasukan" tabindex="-1" role="dialog" aria-labelledby="ModalPemasukan" aria-hidden="true">
+<div class="modal fade" id="EventPengeluaran" tabindex="-1" role="dialog" aria-labelledby="EventPengeluaran" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Event mana yang mau dipilih ?</h5>
+                <h5 class="modal-title" id="EventPengeluaran">Pengeluaran Event mana yang mau dipilih ?</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form method="post" action="<?= base_url('event') ?>">
+                <form method="post" action="<?= base_url('user/eventPengeluaran'); ?>">
                     <div class="form-group row">
                         <label for="username" class="col-sm-2 col-form-label">Username</label>
                         <div class="col-sm-10">
@@ -160,8 +160,8 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <select class="form-control" id="formGroupExampleInput2" name="namaEvent" required>
-                            <?php foreach ($namaEvent as $c) { ?>
+                        <select class="form-control" id="namaEvent" name="namaEvent" required>
+                            <?php foreach ($event as $c) { ?>
                                 <option value="<?php echo $c->namaEvent; ?>"> <?php echo $c->namaEvent; ?></option>
                             <?php } ?>
                         </select>
@@ -169,12 +169,7 @@
             </div>
             <div class="modal-footer center-block">
                 <div class="center-block">
-                    <button type="button" class="btn btn-primary center-block">Tambah Event</button>
-                </div>
-                or
-                <!-- <hr> -->
-                <div class="center-block">
-                    <button type="button" class="btn btn-primary center-block">Tambah Event</button>
+                    <button type="submit" class="btn btn-primary center-block">Pilih Event</button>
                 </div>
             </div>
             </form>
