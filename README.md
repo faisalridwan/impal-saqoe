@@ -6,6 +6,3 @@ Repository yang digunakan untuk implementasi SKPL dan DPPL dalam mata kuliah APP
 
 Saqoe adalah website untuk menejemen keuangan khususnya mahasiswa.
 
-
-
-# eudeka-flutterbasic-finalproject
